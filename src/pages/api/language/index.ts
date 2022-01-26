@@ -8,7 +8,7 @@ const DEFAULT_LOCALE = 'en-US';
 // Learn more: https://nextjs.org/docs/advanced-features/i18n-routing#leveraging-the-next_locale-cookie
 const PREFERRED_LOCALE_COOKIE = 'NEXT_LOCALE';
 
-const language: NextApiHandler = (request, response) => {
+const language = (request:any, response:any) => {
   console.log('APPPI', request.method);
   console.log('APPPI', request.body);
 
