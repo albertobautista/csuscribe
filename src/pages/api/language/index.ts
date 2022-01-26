@@ -1,5 +1,5 @@
 import { serialize, CookieSerializeOptions } from 'cookie';
-import { NextApiHandler, NextApiResponse } from 'next';
+import { NextApiResponse } from 'next';
 
 // Sadly, getting the locale info in API Routes is not officially supported.
 // It should match next.config::i18n.defaultLocale
