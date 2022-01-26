@@ -13,7 +13,7 @@ import Test from '@components/Test';
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   // const nn = 'en-US';
-  console.log('INDEX locale', locale);
+  console.log('INDEX locale2', locale);
 
   try {
     const i18nConf = await serverSideTranslations(locale!);
