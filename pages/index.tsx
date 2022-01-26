@@ -24,9 +24,8 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       },
     };
   } catch (e) {
-    return {
-      notFound: true,
-    };
+    console.log('errro', e);
+    return { props: {} };
   }
 };
 
