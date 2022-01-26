@@ -1,11 +1,34 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import { Grid } from 'semantic-ui-react';
 import LoginLayout from '@templates/LoginLayout';
 import LoginForm from '@components/Login';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'react-i18next';
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  // const nn = 'en-US';
+  console.log('INDEX locale2', locale);
+
+  try {
+    const i18nConf = await serverSideTranslations(locale!);
+
+    return {
+      props: {
+        ...i18nConf,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
+};
 
 const Login: NextPage = () => {
+  const { t } = useTranslation(['common']);
+
   return (
     <LoginLayout>
       <div>
@@ -37,6 +60,7 @@ const Login: NextPage = () => {
             >
               <Link href="/">
                 <a className="primary"> ¿Olvidaste tu contraseña?</a>
+                {t('topStories')}
               </Link>
             </Grid.Column>
             <Grid.Column
