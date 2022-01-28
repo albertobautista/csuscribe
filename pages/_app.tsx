@@ -1,5 +1,6 @@
 import Script from 'next/script';
 import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
 
 import { appWithTranslation } from 'next-i18next';
 
@@ -19,7 +20,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           gtag('js', new Date());
           gtag('config', 'G-2MGC929Z61');`}
       </Script>
-      <Component {...pageProps} />
+      <SessionProvider session={pageProps.session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
   );
 }
