@@ -10,7 +10,7 @@ export default function Page() {
         <a href={`https://next-auth.js.org`}>NextAuth.js</a> for authentication.
       </p>
       <Link href="/login">IR AL LOGIN</Link>
-      <Link href="/product">IR AL CATALOGO</Link>
+      <Link href="/catalog">IR AL CATALOGO</Link>
     </PublicLayout>
   );
 }

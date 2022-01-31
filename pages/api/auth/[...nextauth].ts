@@ -1,6 +1,8 @@
 import NextAuth from 'next-auth';
 
 import GithubProvider from 'next-auth/providers/github';
+import Cognito from 'next-auth/providers/cognito';
+
 // import AppleProvider from "next-auth/providers/apple"
 // import EmailProvider from "next-auth/providers/email"
 
@@ -30,6 +32,12 @@ export default NextAuth({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
       // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+    }),
+    Cognito({
+      clientId: '7e5hmaitl9vgnt7mmoq8e60ham',
+      clientSecret: '4c2lhb1k20e4ha73b0562acv8q6d2bfoh8v0di766295mr4n85e',
+      issuer:
+        'https://cognito-idp.us-east-1.amazonaws.com/7e5hmaitl9vgnt7mmoq8e60ham',
     }),
   ],
   // The secret should be set to a reasonably long random string.
@@ -68,7 +76,7 @@ export default NextAuth({
   // pages is not specified for that route.
   // https://next-auth.js.org/configuration/pages
   pages: {
-    // signIn: '/auth/signin',  // Displays signin buttons
+    signIn: '/singin', // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
@@ -79,10 +87,28 @@ export default NextAuth({
   // when an action is performed.
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) { return true },
-    // async redirect({ url, baseUrl }) { return baseUrl },
-    // async session({ session, token, user }) { return session },
-    // async jwt({ token, user, account, profile, isNewUser }) { return token }
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   console.log('USER', user);
+    //   const isAllowedToSignIn = true;
+    //   if (isAllowedToSignIn) {
+    //     return true;
+    //   } else {
+    //     // Return false to display a default error message
+    //     return false;
+    //     // Or you can return a URL to redirect to:
+    //     // return '/unauthorized'
+    //   }
+    // },
+    // async redirect({ url, baseUrl }) {
+    //   console.log('URL', url);
+    //   console.log('base url', baseUrl);
+    //   return baseUrl;
+    // },
+    // // async session({ session, token, user }) { return session },
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   console.log('token', token);
+    //   return token;
+    // },
   },
 
   // Events are useful for logging
