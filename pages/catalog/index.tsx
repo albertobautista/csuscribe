@@ -34,10 +34,8 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 const Catalog = ({ products }: { products: Product[] }) => {
   const [totalPages, setTotalPages] = useState(1);
-  const [activePage, setActivePage] = useState(1);
-  const [productosFormateados, setproductosFormateados] = useState<Product[]>(
-    []
-  );
+  const [activePage, setActivePage] = useState<any>(1);
+  const [productosFormateados, setproductosFormateados] = useState<any>([]);
   const getPaginationArrayAndPages = (
     originalArray: Product[] = [],
     pageSize: number
@@ -61,15 +59,15 @@ const Catalog = ({ products }: { products: Product[] }) => {
     data: PaginationProps
   ) => {
     console.log('DDDDDDDD', data);
-    setActivePage(data?.activePage);
+    setActivePage(data.activePage);
   };
 
   useEffect(() => {
     const productsPagination = getPaginationArrayAndPages(products, 12);
     console.log('productsPagination', productsPagination);
-    setproductosFormateados(productsPagination?.formatedArray);
+    setproductosFormateados(productsPagination.formatedArray);
     setTotalPages(productsPagination.totalPages);
-  }, []);
+  }, [products]);
 
   return (
     <PublicLayout>
