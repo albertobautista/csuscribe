@@ -12,7 +12,7 @@ export const getStaticProps: GetStaticProps = async () => {
         content: { products },
       },
     }: ApiResponseP = await axios.post(
-      'https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/office',
+      'https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/all',
       {
         owner: 1,
       }
