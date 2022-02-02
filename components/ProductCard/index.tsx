@@ -1,23 +1,23 @@
 import Link from 'next/link';
 import React from 'react';
-import { Card, Grid, Header, Image, Responsive } from 'semantic-ui-react';
+import { Card, Grid, Header, Responsive } from 'semantic-ui-react';
 import type { Product } from '@interfaces/product';
 
 import styles from '@styles/ProductCard.module.css';
+import Image from 'next/image';
 
 interface Props {
   product: Product;
 }
-const urlAWS = 'https://s3.amazonaws.com/tuclick.stage/IKUSI/';
 const ProductCard = ({ product }: Props) => {
-  const { image, name, sku, productId } = product;
+  const { name, sku, productId } = product;
 
   const extra = () => {
     return (
       <Responsive as={Grid} fireOnMount>
         <Grid.Row centered className={styles['card-border']}>
-          <Grid.Column mobile={16} tablet={16} computer={16} largeScreen={16} widescreen={16} style={{ cursor: 'pointer' }}>
-            <Image
+          <Grid.Column mobile={16} tablet={16} computer={16} largeScreen={16} widescreen={16} style={{ cursor: 'pointer' }} textAlign="center">
+            {/* <Image
               as="img"
               className={styles['card-image']}
               // style={{ cursor: 'pointer' }}
@@ -25,7 +25,8 @@ const ProductCard = ({ product }: Props) => {
               src={`${urlAWS}${image}`}
               size="mini"
               alt={name}
-            />
+            /> */}
+            <Image src="/logos/box_azure.webp" alt={name} width={150} height={180} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>

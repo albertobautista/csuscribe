@@ -2,8 +2,6 @@ import React from 'react';
 import { Button, Grid, Icon, Responsive, Search } from 'semantic-ui-react';
 
 import Image from 'next/image';
-const LOGO =
-  'https://s3.amazonaws.com/tuclick.stage/DEMO/logos/siclikSuscribe.png';
 
 const PublicHeader = () => {
   return (
@@ -13,34 +11,16 @@ const PublicHeader = () => {
       </noscript>
       <Grid>
         <Grid.Row textAlign="center" verticalAlign="middle">
-          <Grid.Column
-            mobile={15}
-            tablet={3}
-            computer={3}
-            largeScreen={3}
-            widescreen={3}
-          >
+          <Grid.Column mobile={15} tablet={3} computer={3} largeScreen={3} widescreen={3}>
             <Grid padded verticalAlign="middle" centered>
               <Grid.Row centered>
-                <Grid.Column
-                  mobile={16}
-                  tablet={16}
-                  computer={16}
-                  largeScreen={16}
-                  widescreen={16}
-                >
-                  <Image src={LOGO} alt="logo" width={300} height={150} />
+                <Grid.Column mobile={16} tablet={16} computer={16} largeScreen={16} widescreen={16}>
+                  <Image src="/logos/siclikSuscribe.webp" alt="logo" width={300} height={150} />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
           </Grid.Column>
-          <Grid.Column
-            mobile={15}
-            tablet={12}
-            computer={10}
-            largeScreen={11}
-            widescreen={11}
-          >
+          <Grid.Column mobile={15} tablet={12} computer={10} largeScreen={11} widescreen={11}>
             <Responsive
               as={Grid}
               padded
@@ -49,27 +29,10 @@ const PublicHeader = () => {
               centered
             >
               <Grid.Row centered>
-                <Grid.Column
-                  className="no-padding-right"
-                  largeScreen={12}
-                  computer={12}
-                  tablet={12}
-                  mobile={12}
-                >
-                  <Search
-                    input={{ fluid: true }}
-                    fluid
-                    aligned="center"
-                    placeholder={'Buscar'}
-                  />
+                <Grid.Column className="no-padding-right" largeScreen={12} computer={12} tablet={12} mobile={12}>
+                  <Search input={{ fluid: true }} fluid aligned="center" placeholder={'Buscar'} />
                 </Grid.Column>
-                <Grid.Column
-                  className="no-padding-left"
-                  largeScreen={2}
-                  computer={2}
-                  tablet={2}
-                  mobile={2}
-                >
+                <Grid.Column className="no-padding-left" largeScreen={2} computer={2} tablet={2} mobile={2}>
                   <Button type="submit" color="green">
                     <Icon name="search" />
                   </Button>
