@@ -1,6 +1,6 @@
 import ProductCard from '@components/ProductCard';
 import React from 'react';
-import type { Product } from 'types/types';
+import type { Product } from '@interfaces/product';
 interface Props {
   products: Product[];
 }

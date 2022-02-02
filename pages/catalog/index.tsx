@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import axios from 'axios';
-import type { ApiResponseP, Product } from '../../types/types';
+import { Grid, Card, Icon, Pagination, PaginationProps, Responsive, ResponsiveProps } from 'semantic-ui-react';
+
 import PublicLayout from '@templates/PublicLayout';
-import { Grid, Icon, Pagination, PaginationProps } from 'semantic-ui-react';
-import ProductList from '@components/ProductList';
-import { useEffect, useState } from 'react';
+import { getPaginationArrayAndPages } from '@utils/utils';
+import type { ApiResponseP, Product } from '@interfaces/product';
+import ProductCard from '@components/ProductCard';
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
@@ -13,15 +14,15 @@ export const getStaticProps: GetStaticProps = async () => {
       data: {
         content: { products },
       },
-    }: ApiResponseP = await axios.post(
-      'https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/all',
-      {
-        owner: 1,
-      }
-    );
+    }: ApiResponseP = await axios.post('https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/all', {
+      owner: 1,
+    });
+    const productsPagination = getPaginationArrayAndPages(products, 12);
+
     return {
       props: {
-        products,
+        productsPagination: productsPagination.formatedArray,
+        totalPages: productsPagination.totalPages,
       },
     };
   } catch (error) {
@@ -32,51 +33,47 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   }
 };
-const Catalog = ({ products }: { products: Product[] }) => {
-  const [totalPages, setTotalPages] = useState(1);
-  const [activePage, setActivePage] = useState<any>(1);
-  const [productosFormateados, setproductosFormateados] = useState<any>([]);
-  const getPaginationArrayAndPages = (
-    originalArray: Product[] = [],
-    pageSize: number
-  ) => {
-    const formatedArray = [];
-    let totalPages = originalArray.length / pageSize;
-    let start = 0;
-    let end = pageSize;
-    totalPages =
-      totalPages % 1 > 0 ? Math.trunc(totalPages) + 1 : Math.trunc(totalPages);
-    for (let index = 0; index < totalPages; index++) {
-      const page = originalArray.slice(start, end);
-      start = end;
-      end += pageSize;
-      formatedArray.push(page);
-    }
-    return { formatedArray, totalPages: totalPages > 0 ? totalPages : 1 };
+const Catalog = ({ productsPagination, totalPages }: { products: Product[]; productsPagination: Array<Product[]>; totalPages: number }) => {
+  console.log('formatedProducts1.0', productsPagination[0]);
+
+  const [activePage, setActivePage] = useState(1);
+  const [width, setWidth] = useState(1);
+
+  const handlePaginationChange = async (event: React.MouseEvent<HTMLAnchorElement>, data: PaginationProps) => {
+    setActivePage(data.activePage as number);
   };
-  const handlePaginationChange = async (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    data: PaginationProps
-  ) => {
-    console.log('DDDDDDDD', data);
-    setActivePage(data.activePage);
+  const handleOnUpdate = (event: React.SyntheticEvent<HTMLElement>, { width: widthChange }: ResponsiveProps) => {
+    console.log('WII', widthChange);
+    setWidth(widthChange);
+  };
+  const calculateItemPerRow = (width: number) => {
+    if (width >= 1160 && width <= 1380) return 4;
+    // if (width >= Responsive.onlyMobile?.minWidth && width <= 1159) return 2;
+    if (width >= 1380 && width <= 1159) return 2;
+
+    return 4;
   };
 
-  useEffect(() => {
-    const productsPagination = getPaginationArrayAndPages(products, 12);
-    console.log('productsPagination', productsPagination);
-    setproductosFormateados(productsPagination.formatedArray);
-    setTotalPages(productsPagination.totalPages);
-  }, [products]);
+  const renderProductList = (formatedProducts: Array<Product[]>, activePage: number) => {
+    // const { width } = this.state;
+    console.log('formatedProducts2', formatedProducts);
+    console.log('WII 2', width);
+
+    return (
+      <Grid.Column computer={16} tablet={16} mobile={16}>
+        <Responsive fireOnMount onUpdate={handleOnUpdate} as={Card.Group} stackable itemsPerRow={calculateItemPerRow(width)}>
+          {formatedProducts[activePage - 1].map((item) => (
+            <ProductCard key={item.productId} product={item} />
+          ))}
+        </Responsive>
+      </Grid.Column>
+    );
+  };
 
   return (
     <PublicLayout>
       <Grid>
-        <Grid.Row columns={4}>
-          {productosFormateados.length > 0 && (
-            <ProductList products={productosFormateados[activePage - 1]} />
-          )}
-        </Grid.Row>
+        <Grid.Row>{productsPagination.length > 0 && renderProductList(productsPagination, activePage)}</Grid.Row>
         <Grid.Row>
           <Grid.Column computer={16} tablet={16} mobile={16} textAlign="center">
             {totalPages > 1 ? (

@@ -1,7 +1,7 @@
 import React from 'react';
 import PublicLayout from '@templates/PublicLayout';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import type { ApiResponseP, Product } from 'types/types';
+import type { ApiResponseP, Product } from '@interfaces/product';
 import axios from 'axios';
 import ErrorPage from 'pages/_error';
 import { Button, Card } from 'semantic-ui-react';
@@ -13,12 +13,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     data: {
       content: { products },
     },
-  }: ApiResponseP = await axios.post(
-    'https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/all',
-    {
-      owner: 1,
-    }
-  );
+  }: ApiResponseP = await axios.post('https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/all', {
+    owner: 1,
+  });
   // console.log('products', products);
   console.log('TTTTTTTTTT', typeof products[0].productId);
   const paths = products.map(({ productId }) => ({
@@ -39,21 +36,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const {
     data: { content: product },
-  }: ApiResponseP = await axios.get(
-    `https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/productById/${params?.id}`
-  );
+  }: ApiResponseP = await axios.get(`https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/productById/${params?.id}`);
 
   // Pass post data to the page via props
   return { props: { product }, revalidate: 5 };
 };
 
-const ProductPage = ({
-  product,
-  error,
-}: {
-  product: Product;
-  error: number;
-}) => {
+const ProductPage = ({ product, error }: { product: Product; error: number }) => {
   if (error) {
     return <ErrorPage statusCode={error} />;
   }
