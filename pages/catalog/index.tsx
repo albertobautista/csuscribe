@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 };
 const Catalog = ({ productsPagination, totalPages }: { products: Product[]; productsPagination: Array<Product[]>; totalPages: number }) => {
-  console.log('formatedProducts1.0', productsPagination[0]);
+  console.log('formatedProducts1.', productsPagination[0]);
 
   const [activePage, setActivePage] = useState(1);
   const [width, setWidth] = useState(1);
