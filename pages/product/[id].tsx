@@ -26,7 +26,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // Statically generate all paths
     paths,
     // Display 404 for everything else
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
@@ -36,7 +36,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const {
     data: { content: product },
-  }: ApiResponseP = await axios.get(`https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/productById/${params?.id}`);
+  }: ApiResponseP = await axios.get(
+    `https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/productById/${params?.id}`
+  );
 
   // Pass post data to the page via props
   return { props: { product }, revalidate: 5 };
