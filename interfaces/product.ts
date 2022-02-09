@@ -15,10 +15,16 @@ export interface Content {
 export interface FilterStatic {
   title: string;
   field: string;
-  options: Maker[];
+  options: Maker[] | Type[];
 }
 
 export interface Maker {
+  id: number;
+  value: number;
+  text: StringConstructor;
+}
+
+export interface Type {
   id: number;
   value: number;
   text: StringConstructor;

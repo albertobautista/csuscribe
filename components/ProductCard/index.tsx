@@ -26,7 +26,9 @@ const ProductCard = ({ product }: Props) => {
               size="mini"
               alt={name}
             /> */}
-            <Image src="/logos/box_azure.webp" alt={name} width={150} height={180} />
+            <div style={{ padding: 70, margin: 0 }}>
+              <Image src="/logos/defaultMicrosoft.png" alt={name} layout="fill" objectFit="contain" />
+            </div>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
