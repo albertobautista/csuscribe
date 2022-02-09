@@ -63,8 +63,8 @@ const Catalog = ({
   statusCode: number;
 }) => {
   const [activePage, setActivePage] = useState(1);
-  const [enterpriseActive, setEnterpriseActive] = useState(1);
-  const [licenceTypeActive, setLicenceTypeActive] = useState(2);
+  const [enterpriseActive] = useState(1);
+  const [licenceTypeActive] = useState(2);
   const [width, setWidth] = useState(1);
 
   const handlePaginationChange = async (event: React.MouseEvent<HTMLAnchorElement>, data: PaginationProps) => {
@@ -108,23 +108,23 @@ const Catalog = ({
   //       filterInfo => filterInfo.maker.id === makerId,
   //     );
   //   }
-  const handleEnterpriseChange = (event, item) => {
-    filterForMaker(item.value);
-    setEnterpriseActive(item.value);
-    // this.setState({
-    //   enterpriseActive: item.value,
-    //   typeActive: 0,
-    // });
-  };
+  // const handleEnterpriseChange = (event, item) => {
+  //   // filterForMaker(item.value);
+  //   setEnterpriseActive(item.value);
+  //   // this.setState({
+  //   //   enterpriseActive: item.value,
+  //   //   typeActive: 0,
+  //   // });
+  // };
 
-  const handleTypeChange = (event, item) => {
-    // this.filterForMaker(item.value);
-    setLicenceTypeActive(item.value);
-    // this.setState({
-    //   enterpriseActive: item.value,
-    //   typeActive: 0,
-    // });
-  };
+  // const handleTypeChange = (event, item) => {
+  //   // this.filterForMaker(item.value);
+  //   setLicenceTypeActive(item.value);
+  //   // this.setState({
+  //   //   enterpriseActive: item.value,
+  //   //   typeActive: 0,
+  //   // });
+  // };
 
   if (statusCode) {
     return <ErrorPage statusCode={statusCode} />;
@@ -138,7 +138,7 @@ const Catalog = ({
             <Dropdown
               options={makers}
               value={enterpriseActive}
-              onChange={handleEnterpriseChange}
+              // onChange={handleEnterpriseChange}
               fluid
               selection
               placeholder="Fabricante"
@@ -148,7 +148,7 @@ const Catalog = ({
             <Dropdown
               options={licenceTypes}
               value={licenceTypeActive}
-              onChange={handleTypeChange}
+              // onChange={handleTypeChange}
               fluid
               selection
               placeholder="Licencias"
