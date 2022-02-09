@@ -7,6 +7,7 @@ import ErrorPage from 'pages/_error';
 import { Button, Card } from 'semantic-ui-react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const {
@@ -45,8 +46,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 const ProductPage = ({ product, error }: { product: Product; error: number }) => {
+  const router = useRouter();
   if (error) {
     return <ErrorPage statusCode={error} />;
+  }
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
   }
   return (
     <>
