@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import axios from 'axios';
-import {
-  Grid,
-  Card,
-  Icon,
-  Pagination,
-  PaginationProps,
-  Responsive,
-  ResponsiveProps,
-  Dropdown,
-} from 'semantic-ui-react';
+import { Grid, Card, Icon, Pagination, PaginationProps, Responsive, ResponsiveProps, Dropdown } from 'semantic-ui-react';
 
 import PublicLayout from '@templates/PublicLayout';
 import ProductCard from '@components/ProductCard';
@@ -83,13 +74,7 @@ const Catalog = ({
   const renderProductList = (formatedProducts: Array<Product[]>, activePage: number) => {
     return (
       <Grid.Column computer={16} tablet={16} mobile={16}>
-        <Responsive
-          fireOnMount
-          onUpdate={handleOnUpdate}
-          as={Card.Group}
-          stackable
-          itemsPerRow={calculateItemPerRow(width)}
-        >
+        <Responsive fireOnMount onUpdate={handleOnUpdate} as={Card.Group} stackable itemsPerRow={calculateItemPerRow(width)}>
           {formatedProducts[activePage - 1].map((item) => (
             <ProductCard key={item.productId} product={item} />
           ))}
