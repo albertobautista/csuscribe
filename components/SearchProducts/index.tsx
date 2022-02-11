@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Button, Search, Responsive, Icon, SearchProps } from 'semantic-ui-react';
 interface SearchProductsProps {
   device: string;
@@ -7,13 +7,11 @@ interface SearchProductsProps {
 const SearchProducts = (props: SearchProductsProps) => {
   const router = useRouter();
   const { q } = router.query;
-  console.log('TUPO', typeof q);
+  console.log('QQQQQQQQQ', q);
   const [searchString, setSearchString] = useState<any>(q);
-  // const [width, setWidth] = useState(null);
 
   const handleSearchButtonClick = () => {
     const encodedSearchString = !searchString ? '' : searchString;
-    alert(encodedSearchString);
     encodedSearchString === '' ? router.push('/products') : router.push(`/search/?q=${encodedSearchString}`);
   };
 
@@ -38,10 +36,12 @@ const SearchProducts = (props: SearchProductsProps) => {
         setSearchString(value);
       }
     }
-    console.log('TUPO 2', typeof value);
-
     setSearchString(value);
   };
+
+  useEffect(() => {
+    setSearchString(q);
+  }, []);
 
   const { device = 'computer' } = props;
 

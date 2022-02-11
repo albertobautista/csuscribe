@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { Grid, Icon, Label, Responsive, ResponsiveProps } from 'semantic-ui-react';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const PublicHeader = () => {
+  const router = useRouter();
   const [device, setDevice] = useState('computer');
 
   const getSize = (width: number, modifier = '') => {
@@ -28,6 +30,9 @@ const PublicHeader = () => {
     const device = getSize(width);
     setDevice(device);
   };
+  const goToHome = () => {
+    router.push('/');
+  };
 
   const computerHeader = () => (
     <Grid>
@@ -36,7 +41,7 @@ const PublicHeader = () => {
           <Grid padded verticalAlign="middle" centered>
             <Grid.Row centered>
               <Grid.Column mobile={16} tablet={16} computer={16} largeScreen={16} widescreen={16}>
-                <Image src="/logos/siclikSuscribe.webp" alt="logo" width={300} height={150} />
+                <Image src="/logos/siclikSuscribe.webp" alt="logo" width={300} height={150} onClick={goToHome} />
               </Grid.Column>
             </Grid.Row>
           </Grid>

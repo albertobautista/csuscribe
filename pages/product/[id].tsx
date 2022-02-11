@@ -36,9 +36,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const {
     data: { content: product },
-  }: ApiResponseP = await axios.get(
-    `https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/productById/${params?.id}`
-  );
+  }: ApiResponseP = await axios.get(`https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/productById/${params?.id}`);
 
   // Pass post data to the page via props
   return { props: { product }, revalidate: 5 };
@@ -68,7 +66,7 @@ const ProductPage = ({ product, error }: { product: Product; error: number }) =>
             </Card.Content>
             <Card.Content extra>
               <div className="ui two buttons">
-                <Link href="/catalog">
+                <Link href="/products">
                   <a>
                     <Button basic color="red">
                       Regresar
