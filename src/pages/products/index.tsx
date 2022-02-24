@@ -38,6 +38,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       revalidate: 5,
     };
   } catch (error) {
+    console.log('🚀 ~ file: index.tsx ~ line 41 ~ constgetStaticProps:GetStaticProps= ~ error', error);
     return {
       props: {
         statusCode: 500,
