@@ -1,0 +1,19 @@
+.general_padding_children {
+  padding: 0 4rem !important;
+}
+
+.general_top_padding {
+  padding-top: 4rem !important;
+}
+
+@media (max-width: 767px) {
+  .general_padding_children {
+    padding: 0 1rem !important;
+  }
+  .general_top_padding {
+    padding-top: 3rem !important;
+  }
+  .padding_main_header {
+    padding: 1rem 0 !important;
+  }
+}

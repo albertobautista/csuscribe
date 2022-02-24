@@ -1,0 +1,18 @@
+.login_container {
+  display: flex;
+  flex-wrap: 'wrap';
+  align-items: 'center';
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.login_children {
+  /* flex: 1 1 auto; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_header {
+  padding-bottom: 1rem;
+}

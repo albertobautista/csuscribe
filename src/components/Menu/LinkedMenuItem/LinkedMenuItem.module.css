@@ -1,0 +1,13 @@
+.link_format {
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: #fff !important;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.link_format:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
