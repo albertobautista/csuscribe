@@ -69,7 +69,9 @@ const ProductList = ({ products }: ProductListProps) => {
       <Grid.Row>
         <Grid.Column large={16} computer={16} tablet={16} mobile={16} textAlign="center">
           {totalPages > 1 ? (
+            // <div style={{ width: '100px' }}>
             <Pagination
+              boundaryRange={0}
               activePage={activePage}
               onPageChange={handlePaginationChange}
               totalPages={totalPages}
@@ -80,7 +82,8 @@ const ProductList = ({ products }: ProductListProps) => {
                 icon: true,
               }}
             />
-          ) : null}
+          ) : // </div>
+          null}
         </Grid.Column>
       </Grid.Row>
     </Grid>
