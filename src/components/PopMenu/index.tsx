@@ -38,7 +38,11 @@ const PopMenu = () => {
       <Grid.Row centered className="no-padding-y">
         <Grid.Column textAlign="center" className="no-padding-x">
           <Popup
-            trigger={<Image src={urlImgProfile} alt="Imagen de perfil" width="32px" height="32px" />}
+            trigger={
+              <div style={{ cursor: 'pointer' }}>
+                <Image src={urlImgProfile} alt="Imagen de perfil" width="32px" height="32px" />
+              </div>
+            }
             // content={isAuthenticated ? this.renderMenu() : this.renderLogin()}
             content={renderLogin()}
             on="click"

@@ -1,16 +1,41 @@
-import { Product } from '@interfaces/product';
+export const cloneArrayNoRef = (originalArray) => JSON.parse(JSON.stringify(originalArray));
 
-export const getPaginationArrayAndPages = (originalArray: Product[] = [], pageSize: number) => {
-  const formatedArray = [];
-  let totalPages = originalArray.length / pageSize;
-  let start = 0;
-  let end = pageSize;
-  totalPages = totalPages % 1 > 0 ? Math.trunc(totalPages) + 1 : Math.trunc(totalPages);
-  for (let index = 0; index < totalPages; index++) {
-    const page = originalArray.slice(start, end);
-    start = end;
-    end += pageSize;
-    formatedArray.push(page);
-  }
-  return { formatedArray, totalPages: totalPages > 0 ? totalPages : 1 };
+export const createFormatedFilterArray = (filterArray) => {
+  const filtersCopy = cloneArrayNoRef(filterArray);
+
+  const formatedFilters = filtersCopy.map((filter) => {
+    const formatedOptions = filter.options;
+    const options = formatedOptions;
+    options.unshift({
+      id: 0,
+      value: 0,
+      text: filter.field === 'maker' ? 'Todos los fabricantes' : 'Todos los tipos',
+    });
+    return { ...filter, options };
+  });
+
+  const orderedFilters = formatedFilters.map((filter) => {
+    const { field, options, title } = filter;
+    const orderedOptions = options.sort((a, b) => {
+      if (a.option > b.option) {
+        return 1;
+      }
+      if (a.option < b.option) {
+        return -1;
+      }
+      return 0;
+    });
+    return { field, options: orderedOptions, title };
+  });
+  return orderedFilters;
+};
+
+export const formatStaticFilters = (filters) => {
+  const staticOrder = { maker: null, productType: null };
+
+  const formatedStaticFilters = Object.keys(staticOrder)
+    .map((key) => filters.find((filter) => filter.field === key))
+    .filter((staticFilter) => !!staticFilter);
+
+  return formatedStaticFilters;
 };

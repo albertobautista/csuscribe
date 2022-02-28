@@ -6,7 +6,7 @@ import { CarouselElement, CarouselProps } from './interfaces';
 
 const Carousel = ({ elements, widthElement, heightElement }: CarouselProps) => {
   return (
-    <ResponsiveCarousel showThumbs={false} infiniteLoop autoPlay interval={6000}>
+    <ResponsiveCarousel showThumbs={false} infiniteLoop autoPlay interval={6000} showStatus={false}>
       {elements.map((element: CarouselElement) => (
         <CarouselImage key={element.title} element={element} widthImage={widthElement} heightImage={heightElement} />
       ))}

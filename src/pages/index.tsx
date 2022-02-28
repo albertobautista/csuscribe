@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -21,7 +21,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
     ...(await serverSideTranslations(locale!)),
   },
 });
-export default function Home() {
+const Home: NextPage = () => {
   const [device, setDevice] = useState<'computer' | 'tablet' | 'mobile'>('computer');
   const handleOnUpdate = (e: React.SyntheticEvent<HTMLElement>, { width }: ResponsiveProps) => {
     const device = getSize(width);
@@ -73,12 +73,6 @@ export default function Home() {
       </PrivateLayout>
     </>
   );
-  // }
+};
 
-  // return (
-  //   <>
-  //     Not signed in <br />
-  //     <button onClick={() => signIn()}>Sign in</button> <br /> <br /> <br />
-  //   </>
-  // );
-}
+export default Home;
