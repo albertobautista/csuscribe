@@ -4,11 +4,12 @@ import { GetServerSideProps } from 'next';
 import type { ApiResponseProducts, Product } from '@interfaces/product';
 import axios from 'axios';
 import ErrorPage from '../_error';
-import { Button, Card } from 'semantic-ui-react';
+import { Button, Grid, Header, Label, Segment } from 'semantic-ui-react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import ProductDescription from '@components/ProductDescription';
 
 // export const getStaticPaths: GetStaticPaths = async () => {
 //   const {
@@ -60,24 +61,50 @@ const ProductPage = ({ product, error }: { product: Product; error: number }) =>
       </Head>
       <PublicLayout>
         {product == null ? null : (
-          <Card>
-            <Card.Content>
-              <Card.Header>{product.name}</Card.Header>
-              <Card.Meta>{product.maker.text}</Card.Meta>
-              <Card.Description>{product.description}</Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-              <div className="ui two buttons">
-                <Link href="/products">
-                  <a>
-                    <Button basic color="red">
-                      Regresar
-                    </Button>
-                  </a>
-                </Link>
-              </div>
-            </Card.Content>
-          </Card>
+          <Grid container style={{ paddingTop: '1.5rem', paddingBottom: '2.5rem' }}>
+            <Grid.Row>
+              <Grid.Column largeScreen={16} computer={16} tablet={16} mobile={16}>
+                <ProductDescription product={product} />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column largeScreen={16} computer={16} tablet={16} mobile={16}>
+                <Segment padded="very" textAlign="center">
+                  <Label attached="top">
+                    <Header as="h3" textAlign="center" className="primary">
+                      Descripción
+                    </Header>
+                  </Label>
+                  <p>{product.description}</p>
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+            <Link href="/products">
+              <a>
+                <Button basic color="red">
+                  Regresar
+                </Button>
+              </a>
+            </Link>
+          </Grid>
+          // <Card>
+          //   <Card.Content>
+          //     <Card.Header>{product.name}</Card.Header>
+          //     <Card.Meta>{product.maker.text}</Card.Meta>
+          //     <Card.Description>{product.description}</Card.Description>
+          //   </Card.Content>
+          //   <Card.Content extra>
+          //     <div className="ui two buttons">
+          //       <Link href="/products">
+          //         <a>
+          //           <Button basic color="red">
+          //             Regresar
+          //           </Button>
+          //         </a>
+          //       </Link>
+          //     </div>
+          //   </Card.Content>
+          // </Card>
         )}
       </PublicLayout>
     </>
