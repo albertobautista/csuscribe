@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import axios from 'axios';
 import { Grid, Dropdown, DropdownProps } from 'semantic-ui-react';
@@ -16,7 +16,7 @@ import ProductList from '@components/ProductList';
 
 // const PAGESIZE = 12;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
     const {
       data: {
@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
           filterStatics,
           ...i18nConf,
         },
-        // revalidate: 5,
+        revalidate: 5,
       };
     } else {
       return {
