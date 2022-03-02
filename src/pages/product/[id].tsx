@@ -1,6 +1,6 @@
 import React from 'react';
 import PublicLayout from '@templates/PrivateLayout';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps, GetServerSideProps } from 'next';
 import type { ApiResponseProducts, Product } from '@interfaces/product';
 import axios from 'axios';
 import ErrorPage from '../_error';
@@ -10,27 +10,27 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const {
-    data: {
-      content: { products },
-    },
-  }: ApiResponseProducts = await axios.post('https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/all', {
-    owner: 1,
-  });
-  // console.log('products', products);
-  const paths = products.map(({ productId }) => ({
-    params: { id: productId.toString() },
-  }));
-  // console.log('PATHS', paths);
-  return {
-    // Statically generate all paths
-    paths,
-    fallback: true,
-  };
-};
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const {
+//     data: {
+//       content: { products },
+//     },
+//   }: ApiResponseProducts = await axios.post('https://6hnyvqu5ca.execute-api.us-east-1.amazonaws.com/stage/products/all', {
+//     owner: 1,
+//   });
+//   // console.log('products', products);
+//   const paths = products.map(({ productId }) => ({
+//     params: { id: productId.toString() },
+//   }));
+//   // console.log('PATHS', paths);
+//   return {
+//     // Statically generate all paths
+//     paths,
+//     fallback: true,
+//   };
+// };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
 
@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   const i18nConf = await serverSideTranslations(locale!);
 
   // Pass post data to the page via props
-  return { props: { product, ...i18nConf }, revalidate: 5 };
+  return { props: { product, ...i18nConf } };
 };
 
 const ProductPage = ({ product, error }: { product: Product; error: number }) => {
