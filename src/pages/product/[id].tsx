@@ -1,6 +1,6 @@
 import React from 'react';
 import PublicLayout from '@templates/PrivateLayout';
-import { GetStaticPaths, GetStaticProps, GetServerSideProps } from 'next';
+import { GetServerSideProps } from 'next';
 import type { ApiResponseProducts, Product } from '@interfaces/product';
 import axios from 'axios';
 import ErrorPage from '../_error';
