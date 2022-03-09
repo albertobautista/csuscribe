@@ -14,12 +14,11 @@ const ProductInformation: FC<ProductInformationProps> = ({ product }) => {
   const { activeProductToCart, setActiveProductToCart } = useContext(ActiveProductContext);
 
   const handleQuantity = (e, { value }) => {
-    let validValue = 1;
     if (value !== '') {
       const roundedQuantity = Math.round(value);
-      validValue = validateQuantity(roundedQuantity);
+      value = validateQuantity(roundedQuantity);
     }
-    setActiveProductToCart({ ...activeProductToCart, quantity: validValue });
+    setActiveProductToCart({ ...activeProductToCart, quantity: value });
   };
 
   const validateQuantity = (value: number) => {
@@ -61,7 +60,7 @@ const ProductInformation: FC<ProductInformationProps> = ({ product }) => {
                       <Input type="number" value={activeProductToCart.quantity} onChange={handleQuantity} onBlur={handleQuantityBlur} action>
                         <input
                           style={{
-                            width: '4em',
+                            width: '5em',
                             paddingRight: '0.1em',
                             paddingLeft: '1em',
                           }}
