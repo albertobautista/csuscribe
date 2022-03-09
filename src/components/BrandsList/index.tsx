@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -8,7 +8,7 @@ import { responsiveStyle } from './utils';
 
 import styles from './BrandsList.module.css';
 
-const BrandsList = ({ device, elements }: BrandsListProps) => {
+const BrandsList: FC<BrandsListProps> = ({ device, elements }: BrandsListProps) => {
   const { rowWidths, columnWidths }: any = responsiveStyle[device];
 
   return (

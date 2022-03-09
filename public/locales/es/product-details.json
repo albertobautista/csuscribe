@@ -1,0 +1,8 @@
+{
+  "sku": "SKU",
+  "productType": "Tipo de licencia",
+  "renovationScheme": "Esquema de renovación",
+  "lastUpdateProduct": "Última fecha de actualización",
+  "price": "Precio",
+  "subtotal": "Subtotal"
+}

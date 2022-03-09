@@ -21,13 +21,19 @@ export interface FilterStatic {
 export interface Maker {
   id: number;
   value: number;
-  text: StringConstructor;
+  text: string;
+}
+
+export interface RenovationScheme {
+  id: number;
+  value: number;
+  text: string;
 }
 
 export interface Type {
   id: number;
   value: number;
-  text: StringConstructor;
+  text: string;
 }
 
 export interface Product {
@@ -39,11 +45,11 @@ export interface Product {
   currencyPrice: string;
   maxQuantity: number | null;
   image: string;
-  renovationScheme: Maker[];
+  renovationScheme: RenovationScheme[];
   price: Price[];
   maker: Maker;
   promotionPrice: number;
-  productType: Maker;
+  productType: Type;
 }
 
 export interface Price {

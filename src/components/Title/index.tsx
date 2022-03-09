@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import { TitleProps } from './interfaces';
 
@@ -7,7 +7,7 @@ import styles from './Title.module.css';
 const borderHeader = {
   borderBottom: '5px solid',
 };
-export const Title = ({ title, colorText, idName }: TitleProps) => {
+export const Title: FC<TitleProps> = ({ title, colorText, idName }) => {
   return (
     <Grid.Row id={idName} centered stretched className={`${styles.general_padding_children} ${styles.general_top_padding}`}>
       <Grid.Column largeScreen={5} computer={6} tablet={6} mobile={6} textAlign="center" style={borderHeader} className={colorText} />

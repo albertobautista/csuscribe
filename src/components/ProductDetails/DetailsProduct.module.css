@@ -1,0 +1,9 @@
+.header_title_price {
+  display: inline-block !important;
+  white-space: nowrap;
+}
+
+.header_price {
+  white-space: nowrap;
+  display: inline;
+}

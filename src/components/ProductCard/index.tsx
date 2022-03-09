@@ -5,6 +5,7 @@ import { Card, Grid, Header, Responsive } from 'semantic-ui-react';
 import { ProductCardProps } from './interfaces';
 
 import styles from './ProductCard.module.css';
+const urlAWS = 'https://s3.amazonaws.com/tuclick.stage/IKUSI/';
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const { name, sku, productId } = product;
@@ -24,7 +25,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               alt={name}
             /> */}
             <div style={{ padding: 70, margin: 0, position: 'relative' }}>
-              <Image src="/logos/defaultMicrosoft.png" alt={name} layout="fill" objectFit="contain" priority />
+              <Image src={`${urlAWS}${product.image}`} alt={name} layout="fill" objectFit="contain" priority />
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -34,7 +35,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               style={{ cursor: 'pointer', marginBottom: 0 }}
               // onClick={() => this.handleProductClick(productId)}
               as="h5"
-              className="primary"
+              className="greenText"
               textAlign="center"
             >
               {name}

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Grid, Image } from 'semantic-ui-react';
 import { BannerProps, DualBannerProps } from './interfaces';
 
 import styles from './DualBanner.module.css';
 
-const DualBanner = ({ elements }: DualBannerProps) => {
+const DualBanner: FC<DualBannerProps> = ({ elements }) => {
   return (
     <Grid.Row centered className={`${styles.padding_btw_text} ${styles.general_padding_children}`}>
       {elements.map((banner: BannerProps) => {

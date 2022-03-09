@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import axios from 'axios';
 import { Grid, Dropdown, DropdownProps } from 'semantic-ui-react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -35,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
           filterStatics,
           ...i18nConf,
         },
-        revalidate: 5,
+        revalidate: 50,
       };
     } else {
       return {
@@ -45,7 +44,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
           statusCode,
           ...i18nConf,
         },
-        revalidate: 5,
+        revalidate: 50,
       };
     }
   } catch (error) {
@@ -165,32 +164,28 @@ const Catalog = ({ products, statusCode, filterStatics }: { products: Product[];
   }
 
   return (
-    <>
-      <Head>
-        <title>Catálogo de Productos</title>
-      </Head>
-      <PrivateLayout>
-        <Grid padded style={{ paddingTop: '1rem', paddingBottom: '50px' }}>
-          <Grid.Row>
-            <Grid.Column largeScreen={4} computer={4} tablet={8} mobile={8} floated="right">
-              <Dropdown options={enterprises} value={enterpriseActive} onChange={handleEnterpriseChange} fluid selection placeholder={t('gettingStarted')} />
-            </Grid.Column>
-            <Grid.Column largeScreen={4} computer={4} tablet={8} mobile={8}>
-              <Dropdown options={licenceTypes} value={typeActive} onChange={handleTypeChange} fluid selection placeholder="Licencias" />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row centered>
-            {/* <Responsive as={Grid.Column} style={{ paddingRight: 0 }} largeScreen={3} computer={3} tablet={3} mobile={5} textAlign="left" minWidth={660} /> */}
-            <Grid.Column largeScreen={16} computer={16} tablet={16} mobile={16}>
-              <ProductList
-                products={productsfiltered}
-                // noDataMessage={'error'}
-              />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </PrivateLayout>
-    </>
+    <PrivateLayout title={'Catálogo de Productos'} pageDescription={'Catálogo de productos'}>
+      <Grid padded style={{ paddingTop: '1rem', paddingBottom: '50px' }}>
+        <Grid.Row>
+          <Grid.Column largeScreen={4} computer={4} tablet={8} mobile={16} floated="right" style={{ paddingBottom: '10px' }}>
+            <Dropdown options={enterprises} value={enterpriseActive} onChange={handleEnterpriseChange} fluid selection placeholder={t('gettingStarted')} />
+          </Grid.Column>
+          <Grid.Column largeScreen={4} computer={4} tablet={8} mobile={16}>
+            <Dropdown options={licenceTypes} value={typeActive} onChange={handleTypeChange} fluid selection placeholder="Licencias" />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row centered>
+          {/* <Responsive as={Grid.Column} style={{ paddingRight: 0 }} largeScreen={3} computer={3} tablet={3} mobile={5} textAlign="left" minWidth={660} /> */}
+          <Grid.Column largeScreen={16} computer={16} tablet={16} mobile={16}>
+            <ProductList
+              products={productsfiltered}
+              pageSize={7}
+              // noDataMessage={'error'}
+            />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </PrivateLayout>
   );
 };
 

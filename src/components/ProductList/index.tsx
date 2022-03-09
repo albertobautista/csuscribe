@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
 import ProductCard from '@components/ProductCard';
 import { ProductListProps } from './interfaces';
 import { Card, Grid, Header, Icon, Pagination, PaginationProps, Responsive, ResponsiveProps } from 'semantic-ui-react';
 import { Product } from '@interfaces/product';
 import { getPaginationArrayAndPages } from './utils';
 
-const PAGESIZE = 4;
-
-const ProductList = ({ products }: ProductListProps) => {
+const ProductList: FC<ProductListProps> = ({ products, pageSize }) => {
   const [width, setWidth] = useState(1);
   const [activePage, setActivePage] = useState(1);
   const [formatedProducts, setFormatedProducts] = useState([]);
@@ -49,7 +47,7 @@ const ProductList = ({ products }: ProductListProps) => {
     );
   };
   const setProductsInformation = () => {
-    const productsPagination = getPaginationArrayAndPages(products, PAGESIZE);
+    const productsPagination = getPaginationArrayAndPages(products, pageSize);
     setFormatedProducts(productsPagination.formatedArray);
     setTotalPages(productsPagination.totalPages);
     setActivePage(1);

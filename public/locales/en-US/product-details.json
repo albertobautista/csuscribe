@@ -1,0 +1,8 @@
+{
+  "sku": "SKU",
+  "productType": "Type of license",
+  "renovationScheme": "Renovation scheme",
+  "lastUpdateProduct": "Last update date",
+  "price": "Price",
+  "subtotal": "Subtotal"
+}

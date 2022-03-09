@@ -63,7 +63,7 @@ const SearchProducts = (props: SearchProductsProps) => {
           />
         </Grid.Column>
         <Grid.Column className="no-padding-left" largeScreen={2} computer={2} tablet={2} mobile={2}>
-          <Button type="submit" color="blue" onClick={handleSearchButtonClick}>
+          <Button type="submit" color="green" onClick={handleSearchButtonClick}>
             {device === 'mobile' ? <Icon name="search" /> : t('search')}
           </Button>
         </Grid.Column>

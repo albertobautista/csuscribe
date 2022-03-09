@@ -21,11 +21,11 @@ function PrivateFooter() {
 
   return (
     <Grid>
-      <Grid.Row color="blue" className="no-padding-y">
+      <Grid.Row color="green" className="no-padding-y">
         <Grid.Column largeScreen={16} computer={16} tablet={16} mobile={16} style={{ paddingBottom: '1rem', paddingTop: '1rem' }} />
       </Grid.Row>
 
-      <Grid.Row textAlign="left" color="blue" centered className="no-padding-y">
+      <Grid.Row textAlign="left" color="green" centered className="no-padding-y">
         <Grid.Column style={{ paddingBottom: '2rem', paddingTop: '2rem' }} largeScreen={4} computer={3} tablet={7} mobile={10} verticalAlign="top">
           <StackableLink label={t('termsAndConditions')} url="https://s3.amazonaws.com/tuclick.stage/IKUSI/documents/AvisoDePrivacidad" targetProp="_self" />
           <StackableLink label={t('privacy')} url="https://s3.amazonaws.com/tuclick.stage/IKUSI/documents/AvisoDePrivacidad" targetProp="_self" />
@@ -50,18 +50,18 @@ function PrivateFooter() {
           <Grid style={{ paddingTop: '1rem' }}>
             <Grid.Row style={{ paddingTop: '1rem' }} columns="equal">
               <Grid.Column>
-                <IconLink color="blue" iconName="instagram" label="Instagram" url={SITES.instagram} />
+                <IconLink color="green" iconName="instagram" label="Instagram" url={SITES.instagram} />
               </Grid.Column>
               <Grid.Column>
-                <IconLink color="blue" iconName="twitter" label="Twitter" url={SITES.twitter} />
+                <IconLink color="green" iconName="twitter" label="Twitter" url={SITES.twitter} />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row style={{ paddingTop: '1rem' }} columns="equal">
               <Grid.Column>
-                <IconLink color="blue" iconName="linkedin" label="LinkedIn" url={SITES.linkedin} />
+                <IconLink color="green" iconName="linkedin" label="LinkedIn" url={SITES.linkedin} />
               </Grid.Column>
               <Grid.Column>
-                <IconLink color="blue" iconName="youtube" label="YouTube" url={SITES.youtube} />
+                <IconLink color="green" iconName="youtube" label="YouTube" url={SITES.youtube} />
               </Grid.Column>
             </Grid.Row>
           </Grid>

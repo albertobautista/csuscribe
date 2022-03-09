@@ -23,7 +23,7 @@ const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode, message }) => {
   }
 
   return (
-    <PrivateLayout>
+    <PrivateLayout title={'Error'} pageDescription={'Página de error'}>
       <div>
         🦦 Doh!
         {errorMessage}

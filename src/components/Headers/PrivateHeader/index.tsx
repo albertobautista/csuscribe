@@ -50,7 +50,7 @@ const PrivateHeader = () => {
                 <div>
                   <Icon name="shop" size="big" link />
                   {/* {props.cartCount > 0 ? ( */}
-                  <Label floating circular color="blue">
+                  <Label floating circular color="green">
                     {/* {props.cartCount} */}
                     14
                   </Label>
@@ -99,7 +99,7 @@ const PrivateHeader = () => {
                     // onClick={() => goShoppingCart(props)}
                   />
                   {/* {props.cartCount > 0 ? ( */}
-                  <Label floating circular color="blue">
+                  <Label floating circular color="green">
                     {/* {props.cartCount} */}
                     24
                   </Label>

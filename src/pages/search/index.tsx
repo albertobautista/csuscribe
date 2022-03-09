@@ -18,7 +18,7 @@ const SearchPage = () => {
   const { t } = useTranslation('common');
 
   return (
-    <PrivateLayout>
+    <PrivateLayout title={'Search'} pageDescription={'Search'}>
       {t('search')}: {q}
     </PrivateLayout>
   );
