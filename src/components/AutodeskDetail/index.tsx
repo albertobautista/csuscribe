@@ -65,7 +65,7 @@ const AutodeskDetail = () => {
   const filterContractsAndContacts = (id: number) => {
     console.log('🚀 ~ file: index.tsx ~ line 58 ~ filterContractsAndContacts ~ id', id);
     // alert();
-    const algo = clients.filter((client: Hola) => client.id === id);
+    const algo = clients.filter((client) => client.id === id);
     console.log('🚀 ~ file: index.tsx ~ line 60 ~ filterContractsAndContacts ~ algo', algo);
     const contratos = setContracts(algo[0].contracts);
     const contactos = setContacts(algo[0].contacts);

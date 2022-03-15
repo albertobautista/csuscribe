@@ -9,6 +9,12 @@ export interface ContractAndContact {
   contacts: Contact[];
 }
 
+export interface Client {
+  id: number;
+  value: number;
+  text: string;
+}
+
 export interface ContractAndContactResponseProps extends Response {
   data: ContractAndContact[];
 }
