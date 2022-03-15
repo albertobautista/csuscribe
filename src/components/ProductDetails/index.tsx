@@ -4,18 +4,44 @@ import { Dropdown, DropdownProps, Grid, Header } from 'semantic-ui-react';
 
 import { ActiveProductContext } from '@context/ActiveProduct/ActiveProductContext';
 import { currencyFormat } from '@utils/utils';
-import { ProductDetailsProps } from './interfaces';
+import { Client, ClientResponseProps, ProductDetailsProps } from './interfaces';
 
 import styles from './DetailsProduct.module.css';
+import AutodeskDetail from '@components/AutodeskDetail';
+import Loading from '@components/Loading';
+import { getClientsInfo } from './services';
+import { AxiosResponse } from 'axios';
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
   const { t } = useTranslation('product-details');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState({ isError: false, message: '' });
+  const [clients, setClients] = useState<Client[]>([]);
 
   const { setActiveProductToCart, activeProductToCart } = useContext(ActiveProductContext);
 
   const [currentScheme, setCurrentScheme] = useState('');
   const [currentPrice, setCurrentPrice] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
+
+  const getClients = () => {
+    setLoading(true);
+    getClientsInfo()
+      .then((response: AxiosResponse<ClientResponseProps>) => {
+        const { statusCode } = response.data;
+
+        if (statusCode === 200) {
+          const { data } = response.data;
+          setClients(data);
+        } else {
+          setError({ isError: true, message: `Error: ${statusCode}` });
+        }
+      })
+      .catch((error) => {
+        setError({ isError: true, message: `Error: ${error}` });
+      })
+      .finally(() => setLoading(false));
+  };
 
   const getPrice = (item) => {
     if (item) {
@@ -37,6 +63,10 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
     setActiveProductToCart({ ...activeProductToCart, renovationSchemeId: Number(item.value) });
   };
 
+  const handleClientChange = (event, item: DropdownProps) => {
+    setActiveProductToCart({ ...activeProductToCart, clientId: Number(item.value) });
+  };
+
   useEffect(() => {
     if (product) {
       setCurrentScheme(product.renovationScheme[0].text);
@@ -48,6 +78,36 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
   useEffect(() => {
     setSubtotal(currentPrice * activeProductToCart.quantity);
   }, [activeProductToCart.quantity, currentPrice]);
+
+  useEffect(() => {
+    setActiveProductToCart({
+      ...activeProductToCart,
+      makerId: product.maker.id,
+      owner: 1,
+      productId: product.productId,
+      quantity: 1,
+      renovationSchemeId: product.renovationScheme[0].id,
+      clientId: 0,
+    });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      setActiveProductToCart({
+        ...activeProductToCart,
+        makerId: 0,
+        owner: 0,
+        productId: 0,
+        quantity: 1,
+        renovationSchemeId: 0,
+        clientId: 0,
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    getClients();
+  }, []);
 
   return (
     <Grid>
@@ -74,42 +134,66 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
           </Header>
         </Grid.Column>
       </Grid.Row>
-      {/* 
-      TODO:
-      <Grid.Row>
-        <Grid.Column largeScreen={16} computer={16} tablet={16} mobile={16}>
-          {activeProduct.maker.id === 1 && (
-            <MicrosoftDetail
 
-            // handleCurrentPrice={this.handleCurrentPrice}
-            // handleRenovationScheme={this.handleRenovationScheme}
-            />
-          )}
-        </Grid.Column>
-      </Grid.Row> */}
+      {!loading ? (
+        !error.isError ? (
+          <Grid.Row className="no-padding-y">
+            <Grid.Column largeScreen={11} computer={11} tablet={8} mobile={16} className="no-padding-y">
+              <Header as="h4" className="no-margin-y">
+                {t('client')}:&nbsp;
+              </Header>
+              <Dropdown options={clients} onChange={handleClientChange} fluid selection placeholder={t('selectClient')} />
+            </Grid.Column>
+          </Grid.Row>
+        ) : (
+          <Grid.Column largeScreen={11} computer={11} tablet={8} mobile={16} className="no-padding-y">
+            <Header as="h4" className="no-margin-y">
+              {error.message}
+            </Header>
+          </Grid.Column>
+        )
+      ) : (
+        <Grid.Row>
+          <Grid.Column largeScreen={11} computer={11} tablet={8} mobile={16}>
+            <Loading disable={loading} />
+          </Grid.Column>
+        </Grid.Row>
+      )}
+
+      {product.maker.id === 11 && (
+        <Grid.Row>
+          <Grid.Column largeScreen={16} computer={16} tablet={16} mobile={16}>
+            <AutodeskDetail />
+          </Grid.Column>
+        </Grid.Row>
+      )}
+
       {product.renovationScheme.length > 1 ? (
         <>
           <Grid.Row>
-            <Grid.Column largeScreen={8} computer={8} tablet={8} mobile={16} className="no-padding-y">
+            <Grid.Column largeScreen={11} computer={11} tablet={8} mobile={16} className="no-padding-y">
+              <Header as="h4">{t('renovationScheme')}:&nbsp;</Header>
               <Dropdown options={product.renovationScheme} value={activeProductToCart.renovationSchemeId} onChange={handleRenovationSchemeChange} fluid selection placeholder={t('renovationScheme')} />
             </Grid.Column>
           </Grid.Row>
-          {product.renovationScheme && activeProductToCart.renovationSchemeId ? (
-            <Grid.Row>
-              <Grid.Column>
-                <Header as="h4">
-                  {t('renovationScheme')}:&nbsp;
-                  {currentScheme}
-                </Header>
-              </Grid.Column>
-            </Grid.Row>
-          ) : null}
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h4">
+                {t('renovationScheme')}:&nbsp;
+                {currentScheme}
+              </Header>
+            </Grid.Column>
+          </Grid.Row>
         </>
       ) : (
-        <Header as="h4">
-          {t('renovationScheme')} :&nbsp;
-          {currentScheme}
-        </Header>
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h4">
+              {t('renovationScheme')} :&nbsp;
+              {currentScheme}
+            </Header>
+          </Grid.Column>
+        </Grid.Row>
       )}
       <Grid.Row>
         <Grid.Column>
@@ -127,7 +211,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
           </Header>
           &nbsp;
           <Header as="h4" className={styles.header_price}>
-            {`${currencyFormat(currentPrice, 'MXN')}`}
+            {`${currencyFormat(currentPrice, 'USD')}`}
           </Header>
         </Grid.Column>
         <Grid.Column largeScreen={8} computer={8} tablet={16} mobile={16}>
@@ -136,7 +220,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
           </Header>
           &nbsp;
           <Header as="h4" className={styles.header_price}>
-            {`${currencyFormat(subtotal, 'MXN')}`}
+            {`${currencyFormat(subtotal, 'USD')}`}
           </Header>
         </Grid.Column>
       </Grid.Row>

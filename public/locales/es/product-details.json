@@ -4,5 +4,7 @@
   "renovationScheme": "Esquema de renovación",
   "lastUpdateProduct": "Última fecha de actualización",
   "price": "Precio",
-  "subtotal": "Subtotal"
+  "subtotal": "Subtotal",
+  "client": "Cliente",
+  "selectClient": "Selecciona un cliente"
 }

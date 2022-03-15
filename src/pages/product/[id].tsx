@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import axios from 'axios';
 import { Button, Grid } from 'semantic-ui-react';
 
-import { ActiveProductContext } from '@context/ActiveProduct';
 import PublicLayout from '@templates/PrivateLayout';
 import ProductInformation from '@components/ProductInformation';
 import type { ApiResponseProducts, Product } from '@interfaces/product';
@@ -59,18 +58,30 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 const ProductPage = ({ product, error }: { product: Product; error: number }) => {
   // const router = useRouter();
   // const { contacts, isLoading } = useContacts('/contacts');
-  const { setActiveProductToCart } = useContext(ActiveProductContext);
 
-  useEffect(() => {
-    // setActiveProduct(product);
-    setActiveProductToCart({
-      makerId: product.maker.id,
-      owner: 1,
-      productId: product.productId,
-      quantity: 1,
-      renovationSchemeId: product.renovationScheme[0].id,
-    });
-  }, []);
+  // useEffect(() => {
+  //   alert('Montar');
+
+  //   setActiveProductToCart({
+  //     makerId: product.maker.id,
+  //     owner: 1,
+  //     productId: product.productId,
+  //     quantity: 1,
+  //     renovationSchemeId: product.renovationScheme[0].id,
+  //     clientId: 0,
+  //   });
+  //   return () => {
+  //     alert('Desmontar');
+  //     setActiveProductToCart({
+  //       makerId: 0,
+  //       owner: 0,
+  //       productId: 0,
+  //       quantity: 1,
+  //       renovationSchemeId: 0,
+  //       clientId: 0,
+  //     });
+  //   };
+  // }, []);
 
   if (error) {
     return <ErrorPage statusCode={error} />;

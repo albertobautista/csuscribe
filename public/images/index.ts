@@ -1,4 +1,4 @@
-const bucket = process.env.NEXT_REACT_APP_URL_AWS;
+const bucket = process.env.NEXT_PUBLIC_URL_AWS_BUCKET;
 const assetUrl = `${bucket}/imagesV2/`;
 
 export const bannerData = [

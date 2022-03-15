@@ -6,12 +6,14 @@ import { ActiveProductContext } from '@context/ActiveProduct';
 import ProductDetails from '@components/ProductDetails';
 import { ProductInformationProps } from './interfaces';
 
-const urlAWS = 'https://s3.amazonaws.com/tuclick.stage/IKUSI/';
+const urlAWS = process.env.NEXT_PUBLIC_URL_AWS_BUCKET + '/imagesV2/';
 
 const ProductInformation: FC<ProductInformationProps> = ({ product }) => {
   const { t } = useTranslation('product-information');
 
-  const { activeProductToCart, setActiveProductToCart } = useContext(ActiveProductContext);
+  const { activeProductToCart, setActiveProductToCart, isCartReady } = useContext(ActiveProductContext);
+  console.log('🚀 ~ file: index.tsx ~ line 15 ~ isCartReady', isCartReady);
+  // const [isCartDone, setIsCartDone] = useState(false);
 
   const handleQuantity = (e, { value }) => {
     if (value !== '') {
@@ -70,7 +72,7 @@ const ProductInformation: FC<ProductInformationProps> = ({ product }) => {
                           fluid
                           onClick={() => addItems()}
                           // loading={adding}
-                          // disabled={disableButton}
+                          disabled={!isCartReady}
                           icon
                           labelPosition="right"
                         >

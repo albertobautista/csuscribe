@@ -5,39 +5,24 @@ import { Card, Grid, Header, Responsive } from 'semantic-ui-react';
 import { ProductCardProps } from './interfaces';
 
 import styles from './ProductCard.module.css';
-const urlAWS = 'https://s3.amazonaws.com/tuclick.stage/IKUSI/';
+const urlAWS = process.env.NEXT_PUBLIC_URL_AWS_BUCKET + '/imagesV2/';
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { name, sku, productId } = product;
+  const { name, sku, productId, image } = product;
 
   const extra = () => {
     return (
       <Responsive as={Grid} fireOnMount>
         <Grid.Row centered className={styles.card_border}>
           <Grid.Column mobile={16} tablet={16} computer={16} largeScreen={16} widescreen={16} style={{ cursor: 'pointer' }} textAlign="center">
-            {/* <Image
-              as="img"
-              className={styles['card-image']}
-              // style={{ cursor: 'pointer' }}
-              // onClick={() => this.handleProductClick(productId)}
-              src={`${urlAWS}${image}`}
-              size="mini"
-              alt={name}
-            /> */}
             <div style={{ padding: 70, margin: 0, position: 'relative' }}>
-              <Image src={`${urlAWS}${product.image}`} alt={name} layout="fill" objectFit="contain" priority />
+              <Image src={`${urlAWS}${image}`} alt={name} layout="fill" objectFit="contain" priority />
             </div>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={16} computer={15} largeScreen={15} widescreen={15}>
-            <Header
-              style={{ cursor: 'pointer', marginBottom: 0 }}
-              // onClick={() => this.handleProductClick(productId)}
-              as="h5"
-              className="greenText"
-              textAlign="center"
-            >
+            <Header style={{ cursor: 'pointer', marginBottom: 0 }} as="h5" className="greenText" textAlign="center">
               {name}
             </Header>
             <Header textAlign="center" as="h5" style={{ marginTop: 0 }}>
