@@ -6,7 +6,7 @@
       "@templates/*": ["templates/*"],
       "@styles/*": ["styles/*"],
       "@assets/*": ["assets/*"],
-      "@utils/*": ["utils/*"],
+      "@utilities/*": ["utilities/*"],
       "@interfaces/*": ["interfaces/*"],
       "@hooks/*": ["hooks/*"],
       "@context/*": ["context/*"]

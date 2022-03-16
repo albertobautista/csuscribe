@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { AxiosResponse } from 'axios';
-import { Dropdown, DropdownProps, Grid, Header } from 'semantic-ui-react';
+import { Dropdown, DropdownProps, Grid, Header, Placeholder } from 'semantic-ui-react';
 
 import { ActiveProductContext } from '@context/ActiveProduct';
-import Loading from '@components/Loading';
 import { Contact } from '@interfaces/contact';
 import { Contract } from '@interfaces/contract';
 import { DropdownPops } from '@interfaces/dropdown';
@@ -135,7 +134,7 @@ const AutodeskDetail = () => {
           activeProductToCart.clientId !== 0 ? (
             <>
               <Grid.Row>
-                <Grid.Column largeScreen={11} computer={11} tablet={8} mobile={16}>
+                <Grid.Column largeScreen={11} computer={11} tablet={16} mobile={16}>
                   <Header as="h4" className="no-margin-y">
                     {t('contracts')}:&nbsp;
                   </Header>
@@ -144,7 +143,7 @@ const AutodeskDetail = () => {
               </Grid.Row>
               {contractActive === 0 && (
                 <Grid.Row className="no-padding-y">
-                  <Grid.Column largeScreen={11} computer={11} tablet={8} mobile={16}>
+                  <Grid.Column largeScreen={11} computer={11} tablet={16} mobile={16}>
                     <Header as="h4" className="no-margin-y">
                       {t('contacts')}:&nbsp;
                     </Header>
@@ -171,7 +170,10 @@ const AutodeskDetail = () => {
     <Grid>
       <Grid.Row centered>
         <Grid.Column largeScreen={16} computer={16} tablet={8} mobile={16}>
-          <Loading disable={loading} />
+          <Placeholder>
+            <Placeholder.Line />
+            <Placeholder.Line />
+          </Placeholder>
         </Grid.Column>
       </Grid.Row>
     </Grid>

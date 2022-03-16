@@ -5,7 +5,7 @@ import { Grid, Dropdown, DropdownProps } from 'semantic-ui-react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import PrivateLayout from '@templates/PrivateLayout';
-import { createFormatedFilterArray, formatStaticFilters } from '@utils/utils';
+import { createFormatedFilterArray, formatStaticFilters } from '@utilities/utils';
 import type { ApiResponseProducts, Product } from '@interfaces/product';
 import ErrorPage from '../_error';
 // import { useSession } from 'next-auth/react';

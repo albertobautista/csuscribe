@@ -1,5 +1,5 @@
-import { request } from '@utils/fetch';
-import apiRoutes from '@utils/api-routes';
+import { request } from '@utilities/fetch';
+import apiRoutes from '@utilities/api-routes';
 
 export const getContractsAndContactsInfo = () =>
   request({

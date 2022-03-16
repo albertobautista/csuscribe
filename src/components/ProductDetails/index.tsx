@@ -1,14 +1,13 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
-import { Dropdown, DropdownProps, Grid, Header } from 'semantic-ui-react';
+import { Dropdown, DropdownProps, Grid, Header, Placeholder } from 'semantic-ui-react';
 
 import { ActiveProductContext } from '@context/ActiveProduct/ActiveProductContext';
-import { currencyFormat } from '@utils/utils';
+import { currencyFormat } from '@utilities/utils';
 import { Client, ClientResponseProps, ProductDetailsProps } from './interfaces';
 
 import styles from './DetailsProduct.module.css';
 import AutodeskDetail from '@components/AutodeskDetail';
-import Loading from '@components/Loading';
 import { getClientsInfo } from './services';
 import { AxiosResponse } from 'axios';
 
@@ -40,7 +39,11 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
       .catch((error) => {
         setError({ isError: true, message: `Error: ${error}` });
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
+      });
   };
 
   const getPrice = (item) => {
@@ -138,7 +141,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
       {!loading ? (
         !error.isError ? (
           <Grid.Row className="no-padding-y">
-            <Grid.Column largeScreen={11} computer={11} tablet={8} mobile={16} className="no-padding-y">
+            <Grid.Column largeScreen={11} computer={11} tablet={16} mobile={16} className="no-padding-y">
               <Header as="h4" className="no-margin-y">
                 {t('client')}:&nbsp;
               </Header>
@@ -146,7 +149,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
             </Grid.Column>
           </Grid.Row>
         ) : (
-          <Grid.Column largeScreen={11} computer={11} tablet={8} mobile={16} className="no-padding-y">
+          <Grid.Column largeScreen={11} computer={11} tablet={16} mobile={16} className="no-padding-y">
             <Header as="h4" className="no-margin-y">
               {error.message}
             </Header>
@@ -154,8 +157,11 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
         )
       ) : (
         <Grid.Row>
-          <Grid.Column largeScreen={11} computer={11} tablet={8} mobile={16}>
-            <Loading disable={loading} />
+          <Grid.Column largeScreen={11} computer={11} tablet={16} mobile={16}>
+            <Placeholder>
+              <Placeholder.Line />
+              <Placeholder.Line />
+            </Placeholder>
           </Grid.Column>
         </Grid.Row>
       )}
